@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.203.0/containers/typescript-node
+{
+  "name": "Node.js & TypeScript",
+  "runArgs": [
+    "--init"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick a Node version: 16, 14, 12.
+    // Append -bullseye or -buster to pin to an OS version.
+    // Use -bullseye variants on local on arm64/Apple Silicon.
+    "args": {
+      "VARIANT": "16-bullseye"
+    }
+  },
+  "settings": {
+    "extensions.ignoreRecommendations": true,
+    "editor.formatOnSave": true,
+    "git.rebaseWhenSync": true,
+    "git.autofetch": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "yaml.schemas": {
+      "http://json.schemastore.org/stylelintrc": ".stylelintrc.yaml",
+      "http://json.schemastore.org/eslintrc": ".eslintrc.yaml"
+    },
+    "files.associations": {
+      "*.json": "jsonc",
+      "[Dd]ockerfile*": "dockerfile",
+      "docker-compose*": "yaml"
+    },
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "redhat.vscode-yaml",
+    "vtrois.gitmoji-vscode"
+  ],
+  "forwardPorts": [
+    9000
+  ],
+  "portsAttributes": {
+    "9000": {
+      "label": "Storybook",
+      "onAutoForward": "notify",
+    },
+  },
+  "onCreateCommand": "pnpm install && pnpm recursive install --filter ./libraries",
+  "remoteUser": "node",
+  "features": {
+    "docker-in-docker": "20.10",
+    "docker-from-docker": "20.10",
+    "git": "2.33.1",
+    "github-cli": "2.2.0"
+  }
+}
